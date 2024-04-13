@@ -30,12 +30,21 @@ function validarFormulario(e) {
     }
 }
 
+let contadorId = 1; // Inicializar el contador de ID en 1
+
 function agregarEstudiante() {
-    listestudiantes.push(objestudiante);
+    const nuevoEstudiante = { ...objestudiante, id: contadorId++ }; // Asignar el ID y luego incrementar el contador
+    listestudiantes.push(nuevoEstudiante);
     mostrarEstudiantes();
+
+    localStorage.setItem('listestudiantes', JSON.stringify(listestudiantes));
 }
 
+
+
+
 function mostrarEstudiantes() {
+    limpiarHTML(); 
     const divEstudiante = document.querySelector('.div-estudiante');
     listestudiantes.forEach(estudiante => {
         const { id, nombre, correo, direccion, telefono } = estudiante;
@@ -105,12 +114,18 @@ function editarEstudiante() {
 }
 
 function eliminarEstudiante(id) {
-
     listestudiantes = listestudiantes.filter(estudiante => estudiante.id !== id);
-
     limpiarHTML();
     mostrarEstudiantes();
+    
+    // Restablecer el contador de ID y actualizar los ID de los estudiantes restantes
+    contadorId = 1;
+    listestudiantes.forEach(estudiante => {
+        estudiante.id = contadorId++;
+    });
 }
+
+
 
 function limpiarHTML() {
     const divEstudiante = document.querySelector('.div-estudiante');
@@ -118,3 +133,6 @@ function limpiarHTML() {
         divEstudiante.removeChild(divEstudiante.firstChild);
     }
 }
+
+// Guardar el array en el localStorage
+localStorage.setItem('listestudiantes', JSON.stringify(listestudiantes));
