@@ -1,138 +1,105 @@
-let listestudiantes = [];
-
-const objestudiante = {
+let listEstudiantes = [];
+const objEstudiante = {
     id:'',
     nombre: '',
     correo: '',
     direccion: '',
     telefono: ''
-}
+};
 let editando = false;
 
 formulario.addEventListener('submit', validarFormulario);
 
 function validarFormulario(e) {
     e.preventDefault();
-    if (nombre.value == '' || correo.value == '' || direccion.value == '' || telefono.value == '') {
+    const nombreValue = nombre.value.trim();
+    const correoValue = correo.value.trim();
+    const direccionValue = direccion.value.trim();
+    const telefonoValue = telefono.value.trim();
+
+    if (nombreValue === '' || correoValue === '' || direccionValue === '' || telefonoValue === '') {
         alert('Todos los campos son obligatorios');
     } else {
         if (editando) {
-            actualizarEstudiante();
+            editarEstudiante();
         } else {
-            objestudiante.id = Date.now(),
-            objestudiante.nombre= nombre.value,
-            objestudiante.correo = correo.value,
-            objestudiante.direccion = direccion.value,
-            objestudiante.telefono = telefono.value
-
-            agregarEstudiante();
+            const nuevoEstudiante = {
+                id: Date.now(),
+                nombre: nombreValue,
+                correo: correoValue,
+                direccion: direccionValue,
+                telefono: telefonoValue
+            };
+            agregarEstudiante(nuevoEstudiante);
         }
     }
 }
 
-let contadorId = 1; // Inicializar el contador de ID en 1
-
-function agregarEstudiante() {
-    const nuevoEstudiante = { ...objestudiante, id: contadorId++ }; // Asignar el ID y luego incrementar el contador
-    listestudiantes.push(nuevoEstudiante);
+function agregarEstudiante(estudiante) {
+    listEstudiantes.push(estudiante);
     mostrarEstudiantes();
-
-    localStorage.setItem('listestudiantes', JSON.stringify(listestudiantes));
+    localStorage.setItem('listEstudiantes', JSON.stringify(listEstudiantes));
 }
 
-
-
-
 function mostrarEstudiantes() {
-    limpiarHTML(); 
+    limpiarHTML();
     const divEstudiante = document.querySelector('.div-estudiante');
-    listestudiantes.forEach(estudiante => {
+    listEstudiantes.forEach(estudiante => {
         const { id, nombre, correo, direccion, telefono } = estudiante;
         const parrafo = document.createElement('p');
         parrafo.textContent = `${id} - ${nombre} - ${correo} - ${direccion} - ${telefono} - `;
-        parrafo.dataset.id = id;
         const editarBoton = document.createElement('button');
-        editarBoton.onclick = () => cargarEstudiante(estudiante);
         editarBoton.textContent = 'Editar';
         editarBoton.classList.add('btn', 'btn-editar');
-        parrafo.append(editarBoton);
+        editarBoton.addEventListener('click', () => cargarEstudiante(estudiante));
         const eliminarBoton = document.createElement('button');
-        eliminarBoton.onclick = () => eliminarEstudiante(id);
         eliminarBoton.textContent = 'Eliminar';
         eliminarBoton.classList.add('btn', 'btn-eliminar');
-        parrafo.append(eliminarBoton);
-        const hr = document.createElement('hr');
+        eliminarBoton.addEventListener('click', () => eliminarEstudiante(id));
+        parrafo.appendChild(editarBoton);
+        parrafo.appendChild(eliminarBoton);
         divEstudiante.appendChild(parrafo);
-        divEstudiante.appendChild(hr);
     });
 }
 
 function cargarEstudiante(estudiante) {
-    const {id, nombre, correo, direccion, telefono} = estudiante;
-
-    nombreInput.value = nombre;
-    direccionInput.value = direccion;
-    telefonoInput.value = telefono;
-    correoInput.value = correo;
-
-
-    objestudiante.id = id;
-
+    const { id, nombre, correo, direccion, telefono } = estudiante;
+    nombre.value = nombre;
+    direccion.value = direccion;
+    telefono.value = telefono;
+    correo.value = correo;
+    objEstudiante.id = id;
     formulario.querySelector('button[type="submit"]').textContent = 'Actualizar';
-    
     editando = true;
 }
 
 function editarEstudiante() {
-
-    objestudiante.nombre = nombreInput.value;
-    objestudiante.direccion = direccionInput.value;
-    objestudiante.telefono = telefonoInput.value;
-    objestudiante.correo = correoInput.value;
-
-
-    listestudiantes.map(estudiante=> {
-
-        if(estudiante.id === objestudiante.id) {
-            estudiante.id = objestudiante.id;
-            estudiante.nombre = objestudiante.nombre;
-            estudiante.puesto = objestudiante.direccion;
-            estudiante.telefono = objestudiante.telefono;
-            estudiante.correo = objestudiante.correo;
-
+    objEstudiante.nombre = nombre.value;
+    objEstudiante.direccion = direccion.value;
+    objEstudiante.telefono = telefono.value;
+    objEstudiante.correo = correo.value;
+    listEstudiantes = listEstudiantes.map(estudiante => {
+        if (estudiante.id === objEstudiante.id) {
+            return objEstudiante;
+        } else {
+            return estudiante;
         }
-
     });
-
     limpiarHTML();
     mostrarEstudiantes();
     formulario.reset();
-
     formulario.querySelector('button[type="submit"]').textContent = 'Agregar';
-    
     editando = false;
 }
 
 function eliminarEstudiante(id) {
-    listestudiantes = listestudiantes.filter(estudiante => estudiante.id !== id);
+    listEstudiantes = listEstudiantes.filter(estudiante => estudiante.id !== id);
     limpiarHTML();
     mostrarEstudiantes();
-    
-    // Restablecer el contador de ID y actualizar los ID de los estudiantes restantes
-    contadorId = 1;
-    listestudiantes.forEach(estudiante => {
-        estudiante.id = contadorId++;
-    });
+    localStorage.setItem('listEstudiantes', JSON.stringify(listEstudiantes));
 }
-
-
 
 function limpiarHTML() {
     const divEstudiante = document.querySelector('.div-estudiante');
-    while(divEstudiante.firstChild) {
-        divEstudiante.removeChild(divEstudiante.firstChild);
-    }
+    divEstudiante.innerHTML = '';
 }
-
-// Guardar el array en el localStorage
-localStorage.setItem('listestudiantes', JSON.stringify(listestudiantes));
