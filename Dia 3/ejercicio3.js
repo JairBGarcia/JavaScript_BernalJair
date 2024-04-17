@@ -1,20 +1,21 @@
-//Reemplazar palabras
+//Ejercicio Arboles 
 
-function reemplazo(dictionary, sentence) {
-    dictionary.sort((a, b) => a.length - b.length);
-    return sentence.split(' ').map(palabra => {
-      for (let raiz of dictionary) {
-        if (palabra.startsWith(raiz)) return raiz;
-      }
-      return palabra;
-    }).join(' ');
+function eliminarNodo(root, key) { //el nodo el arbol y key que es el de eliminar
+    if (!root) return null;
+  
+    if (key < root.val) {
+      root.left = eliminarNodo(root.left, key);
+    } else if (key > root.val) {
+      root.right = eliminarNodo(root.right, key);
+    } else {
+      if (!root.left) return root.right;
+      if (!root.right) return root.left;
+  
+      let minNode = root.right;
+      while (minNode.left) minNode = minNode.left;
+      root.val = minNode.val;
+      root.right = eliminarNodo(root.right, root.val);
+    }
+    return root;
   }
-  
-  const diccionario1 = ["gato", "murciélago", "rata"];
-  const frase1 = "el ganado fue sacudido por la batería";
-  console.log(reemplazo(diccionario1, frase1));
-  
-  const diccionario2 = ["a", "b", "c"];
-  const frase2 = "aadsfasf absbs bbab cadsfafs";
-  console.log(reemplazo(diccionario2, frase2));
   
