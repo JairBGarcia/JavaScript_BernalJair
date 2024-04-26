@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&display=swap');
+
 .imagen {
     position: absolute;
     left: 50%;
@@ -7,7 +9,7 @@
     height: auto;
 }
 
-.degradado{
+.degradado {
     background-color: #4e80c0;
     background-image: linear-gradient(to bottom, #4e80c0, #ffffff);
     height: 100vh;
@@ -15,4 +17,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Oxanium', cursive;
+}
+
+.degradado h1 {
+    position: absolute; 
+    font-size: 100px;
+    color: #000000;
 }
