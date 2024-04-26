@@ -19,91 +19,91 @@ function starwars() {
 //con esta funcion mostramos los datos del personaje
 function oneforall(data) {
     let dataInfo = '<h2>' + data.name + '</h2>';
-
-    dataInfo += '<p><strong>height:</strong> ' + data.height + '</p>';
-    dataInfo += '<p><strong>mass:</strong> ' + data.mass + '</p>'
-    dataInfo += '<p><strong>hair color:</strong> ' + data.hair_color + '</p>'
-    dataInfo += '<p><strong>skin color:</strong> ' + data.skin_color + '</p>'
-    dataInfo += '<p><strong>eye color:</strong> ' + data.eye_color + '</p>'
-    dataInfo += '<p><strong>birth year:</strong> ' + data.birth_year + '</p>'
-    dataInfo += '<p><strong>gender:</strong> ' + data.gender + '</p>'
-    dataInfo += '<p><strong>created:</strong> ' + data.created + '</p>'
-    dataInfo += '<p><strong>homeworld:</strong>' + '</p>';
+    dataInfo += '<table>';
+    dataInfo += '<tr><td><strong>height:</strong></td><td>' + data.height + '</td></tr>';
+    dataInfo += '<tr><td><strong>mass:</strong></td><td>' + data.mass + '</td></tr>';
+    dataInfo += '<tr><td><strong>hair color:</strong></td><td>' + data.hair_color + '</td></tr>';
+    dataInfo += '<tr><td><strong>skin color:</strong></td><td>' + data.skin_color + '</td></tr>';
+    dataInfo += '<tr><td><strong>eye color:</strong></td><td>' + data.eye_color + '</td></tr>';
+    dataInfo += '<tr><td><strong>birth year:</strong></td><td>' + data.birth_year + '</td></tr>';
+    dataInfo += '<tr><td><strong>gender:</strong></td><td>' + data.gender + '</td></tr>';
+    dataInfo += '<tr><td><strong>created:</strong></td><td>' + data.created + '</td></tr>';
+    dataInfo += '<tr><td><strong>homeworld:</strong></td><td>' + '</td></tr>';
     fetch(data.homeworld)
        .then(response => response.json()) 
        .then(homeworldData => {
-            dataInfo += `<p><strong>Name:</strong> ${homeworldData.name}</p>`;
-            dataInfo += `<p><strong>Rotation Period:</strong> ${homeworldData.rotation_period}</p>`;
-            dataInfo += `<p><strong>Orbital Period:</strong> ${homeworldData.orbital_period}</p>`;
-            dataInfo += `<p><strong>Diameter:</strong> ${homeworldData.diameter}</p>`;
-            dataInfo += `<p><strong>Climate:</strong> ${homeworldData.climate}</p>`;
-            dataInfo += `<p><strong>Gravity:</strong> ${homeworldData.gravity}</p>`;
-            dataInfo += `<p><strong>Terrain:</strong> ${homeworldData.terrain}</p>`;
-            dataInfo += `<p><strong>Surface Water:</strong> ${homeworldData.surface_water}</p>`;
-            dataInfo += `<p><strong>Population:</strong> ${homeworldData.population}</p>`;
+            dataInfo += `<tr><td><strong>Name:</strong></td><td>${homeworldData.name}</td></tr>`;
+            dataInfo += `<tr><td><strong>Rotation Period:</strong></td><td>${homeworldData.rotation_period}</td></tr>`;
+            dataInfo += `<tr><td><strong>Orbital Period:</strong></td><td>${homeworldData.orbital_period}</td></tr>`;
+            dataInfo += `<tr><td><strong>Diameter:</strong></td><td>${homeworldData.diameter}</td></tr>`;
+            dataInfo += `<tr><td><strong>Climate:</strong></td><td>${homeworldData.climate}</td></tr>`;
+            dataInfo += `<tr><td><strong>Gravity:</strong></td><td>${homeworldData.gravity}</td></tr>`;
+            dataInfo += `<tr><td><strong>Terrain:</strong></td><td>${homeworldData.terrain}</td></tr>`;
+            dataInfo += `<tr><td><strong>Surface Water:</strong></td><td>${homeworldData.surface_water}</td></tr>`;
+            dataInfo += `<tr><td><strong>Population:</strong></td><td>${homeworldData.population}</td></tr>`;
             if (homeworldData.residents) {
-                dataInfo += `<p><strong>Residents:</strong></p>`;
+                dataInfo += `<tr><td><strong>Residents:</strong></td><td></td></tr>`;
                 homeworldData.residents.forEach(residents => {
-                    dataInfo += `<p>${residents}</p>`;
+                    dataInfo += `<tr><td></td><td>${residents}</td></tr>`;
                 })
             }
             if (homeworldData.films.length) {
-                dataInfo += `<p><strong>Films:</strong></p>`;
+                dataInfo += `<tr><td><strong>Films:</strong></td><td></td></tr>`;
                 homeworldData.films.forEach(film => {
-                    dataInfo += `<p>${film}</p>`;
+                    dataInfo += `<tr><td></td><td>${film}</td></tr>`;
                 });
             }
-            dataInfo += `<p><strong>Created:</strong> ${homeworldData.created}</p>`;
-            dataInfo += `<p><strong>Edited:</strong> ${homeworldData.edited}</p>`;
-            dataInfo += `<p><strong>URL:</strong> ${homeworldData.url}</p>`;
-            dataInfo += '<p><strong>films:</strong></p>';
-            dataInfo += '<ul>';
+            dataInfo += `<tr><td><strong>Created:</strong></td><td>${homeworldData.created}</td></tr>`;
+            dataInfo += `<tr><td><strong>Edited:</strong></td><td>${homeworldData.edited}</td></tr>`;
+            dataInfo += `<tr><td><strong>URL:</strong></td><td>${homeworldData.url}</td></tr>`;
+            dataInfo += '<tr><td><strong>films:</strong></td><td></td></tr>';
             let filmPromises = data.films.map(filmLink => { 
                 return fetch(filmLink) 
                    .then(response => response.json())
                    .then(filmData => {
-                        dataInfo += '<li>' + filmData.title + ' (' + filmData.release_date + ')</li>';
-                        dataInfo += `<p><strong>episode_id:</strong> ${filmData.episode_id}</p>`;
-                        dataInfo += `<p><strong>opening_crawl:</strong> ${filmData.opening_crawl}</p>`;
-                        dataInfo += `<p><strong>director:</strong> ${filmData.director}</p>`;
-                        dataInfo += `<p><strong>producer:</strong> ${filmData.producer}</p>`;
+                        dataInfo += '<tr><td></td><td>' + filmData.title + ' (' + filmData.release_date + ')</td></tr>';
+                        dataInfo += `<tr><td><strong>episode_id:</strong></td><td>${filmData.episode_id}</td></tr>`;
+                        dataInfo += `<tr><td><strong>opening_crawl:</strong></td><td>${filmData.opening_crawl}</td></tr>`;
+                        dataInfo += `<tr><td><strong>director:</strong></td><td>${filmData.director}</td></tr>`;
+                        dataInfo += `<tr><td><strong>producer:</strong></td><td>${filmData.producer}</td></tr>`;
                         if (filmData.characters) {
-                            dataInfo += `<p><strong>characters:</strong></p>`;
+                            dataInfo += `<tr><td><strong>characters:</strong></td><td></td></tr>`;
                             filmData.characters.forEach(characters => {
-                                dataInfo += `<p>${characters}</p>`;
+                                dataInfo += `<tr><td></td><td>${characters}</td></tr>`;
                             })
                         }
                         if (filmData.planets) {
-                            dataInfo += `<p><strong>planets:</strong></p>`;
+                            dataInfo += `<tr><td><strong>planets:</strong></td><td></td></tr>`;
                             filmData.planets.forEach(planets => {
-                                dataInfo += `<p>${planets}</p>`;
+                                dataInfo += `<tr><td></td><td>${planets}</td></tr>`;
                             })
                         }
-                        dataInfo += `<p><strong>starships:</strong></p>`;
+                        dataInfo += `<tr><td><strong>starships:</strong></td><td></td></tr>`;
                         filmData.starships.forEach(starships => {
-                            dataInfo += `<p>${starships}</p>`;
+                            dataInfo += `<tr><td></td><td>${starships}</td></tr>`;
                         })
-                        dataInfo += `<p><strong>vehicles:</strong></p>`;
+                        dataInfo += `<tr><td><strong>vehicles:</strong></td><td></td></tr>`;
                         filmData.vehicles.forEach(vehicles => {
-                            dataInfo += `<p>${vehicles}</p>`;
+                            dataInfo += `<tr><td></td><td>${vehicles}</td></tr>`;
                         })
-                        dataInfo += `<p><strong>species:</strong></p>`;
+                        dataInfo += `<tr><td><strong>species:</strong></td><td></td></tr>`;
                         filmData.species.forEach(species => {
-                            dataInfo += `<p>${species}</p>`;
+                            dataInfo += `<tr><td></td><td>${species}</td></tr>`;
                         })
-                        dataInfo += `<p><strong>created:</strong> ${filmData.created}</p>`;
-                        dataInfo += `<p><strong>edited:</strong> ${filmData.edited}</p>`;
-                        dataInfo += `<p><strong>url:</strong> ${filmData.url}</p>`;
+                        dataInfo += `<tr><td><strong>created:</strong></td><td>${filmData.created}</td></tr>`;
+                        dataInfo += `<tr><td><strong>edited:</strong></td><td>${filmData.edited}</td></tr>`;
+                        dataInfo += `<tr><td><strong>url:</strong></td><td>${filmData.url}</td></tr>`;
                    })
                    .catch(error => {
                         console.error('Error fetching film:', error);
-                        dataInfo += '<li>Error fetching film</li>';
+                        dataInfo += '<tr><td></td><td>Error fetching film</td></tr>';
                    });
             });
 
-            Promise.all(filmPromises) // espera a que todas las promesas se resuelvan
+
+            Promise.all(filmPromises) // Espera a que todas las promesas se resuelvan
                 .then(() => { 
-                    dataInfo += '</ul>';
+                    dataInfo += '</table>';
                     dataInfo += '<p><strong>species:</strong>' + '</p>';
                     fetch(data.species)
                     .then(response => response.json())
@@ -152,6 +152,10 @@ function oneforall(data) {
             dataInfo += '<p><strong>homeworld:</strong> Error fetching homeworld</p>';
             document.getElementById('personstar').innerHTML = dataInfo;
         });
-        
-
-})}
+    })
+    .catch(error => {
+        console.error('Error fetching homeworld:', error);
+        dataInfo += '<p><strong>homeworld:</strong> Error fetching homeworld</p>';
+        document.getElementById('personstar').innerHTML = dataInfo;
+    });
+}
