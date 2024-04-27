@@ -7,9 +7,25 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="shortcut icon" href="./images/icon.png">
 </head>
-<body class="degradado">
-    <img class="imagen" src="/images/pokedex.png" alt="1">
-    <h1>Nospiiiiiii</h1>
+
+<body>
+    <div class="pokemones">
+        <img src="#" alt="poke" class="poke_imagen">
+
+        <h1 class="datos">
+            <span class="numero_pokemon"></span> -
+            <span class="nombre_pokemon"></span>
+        </h1>
+
+        <form class="form">
+            <input type="search" class="buscador" placeholder="Nombre o numero" required> 
+        </form>
+
+        <div class="botones">
+            <button class="boton_prev">Anterior <</button>
+            <button class="boton_next">Siguiente ></button>
+        </div>
+    </div>
 </body>
 <script src="/modulo/script.js"></script>
 </html>
