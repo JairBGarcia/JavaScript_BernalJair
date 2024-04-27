@@ -1,27 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&display=swap');
 
-.imagen {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Oxanium', cursive;
+}
+
+body{
+    text-align: center;
+    background-color: linear-gradient(to bottom,#6ab7f5, #fff );
+    min-height: 100vh;
+}
+
+.pokemones{
+    display: inline-block;
+    margin-top: 2%;
+    padding: 15px;
+    position: relative;
+}
+
+.nintendo{
+    width: 100%;
+    max-width: 425px;
+}
+
+.poke_imagen{
     position: absolute;
+    bottom: 55%;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-    height: auto;
-}
-
-.degradado {
-    background-color: #4e80c0;
-    background-image: linear-gradient(to bottom, #4e80c0, #ffffff);
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Oxanium', cursive;
-}
-
-.degradado h1 {
-    position: absolute; 
-    font-size: 100px;
-    color: #000000;
+    transform: translate(-63%, 20%);
+    height: 18%;
 }
