@@ -56,20 +56,23 @@ class AplicacionPokemon {
       // Muestra los datos si están en la API
       this.elementos.nombrePokemon.textContent = datos.name;
       this.elementos.numeroPokemon.textContent = datos.id;
-      // Obtiene la imagen animada del Pokémon si está disponible
-      const animatedImage = datos.sprites.versions['generation-v']['black-white'].animated.front_default;
-      if (animatedImage) {
-        this.elementos.imagenPokemon.src = animatedImage; // Fotico animado del poke
-      } else {
-        // Si no hay imagen animada, muestra la imagen estática
-        const staticImage = datos.sprites.other['official-artwork'].front_default;
-        if (staticImage) {
-          this.elementos.imagenPokemon.src = staticImage; // Fotico estático del poke
-        } else {
-          // Si no hay ninguna imagen disponible, oculta la imagen
-          this.elementos.imagenPokemon.style.display = 'none';
+  
+      // Verificar si la propiedad 'sprites' está presente en los datos
+      if (datos.sprites) {
+        // Verificar si la propiedad 'other' y 'showdown' están presentes en los datos
+        if (datos.sprites.other && datos.sprites.other.showdown && datos.sprites.other.showdown.front_default) {
+          // Asignar la imagen al src del elemento img
+          this.elementos.imagenPokemon.src = datos.sprites.other.showdown.front_default;
+        } else if (datos.sprites.front_default) {
+          // Si no se encuentra la imagen 'other' y 'showdown', usar la imagen por defecto
+          this.elementos.imagenPokemon.src = datos.sprites.front_default;
         }
+      } else {
+        // Si no se encuentran sprites, mostrar un mensaje de error
+        this.elementos.imagenPokemon.src = ''; // Limpiar la imagen
+        this.elementos.imagenPokemon.alt = 'Image not found';
       }
+  
       // Actualiza el número de búsqueda del Pokémon actual
       this.busquedaPokemon = datos.id;
     } else {
@@ -79,6 +82,7 @@ class AplicacionPokemon {
       this.elementos.imagenPokemon.style.display = 'none';
     }
   }
+  
   
 
   enviarFormulario(evento) {
