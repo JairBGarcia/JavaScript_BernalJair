@@ -1,0 +1,74 @@
+body {
+    background: linear-gradient(to bottom, #4CAF50, #ffffff); 
+    margin: 0; 
+    padding: 0; 
+    width: 1920px; 
+    height: 1080px; 
+}
+
+#pedir-carta {
+    position: absolute;
+    top: 80vh;
+    left: 65vh;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+#plantarse {
+    position: absolute;
+    top: 80vh;
+    left: 119vh;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+#pedir-carta:hover,
+#plantarse:hover {
+    background-color: #45a049;
+}
+
+#pedir-carta:active,
+#plantarse:active {
+    background-color: #398438;
+    transform: translateY(2px);
+}
+
+/* Estilos para el botón de reproducir música */
+button {
+    position: absolute;
+    top: 90vh;
+    left: 92vh;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+/* Estilos para el control deslizante de volumen */
+input[type="range"] {
+    position: absolute;
+    top: 93vh;
+    left: 92vh;
+    transform: translateX(-50%);
+    width: 200px;
+    z-index: 1;
+}
