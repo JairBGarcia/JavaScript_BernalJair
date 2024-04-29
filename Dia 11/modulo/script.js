@@ -35,7 +35,7 @@ class AplicacionPokemon {
       // muestra los datos si estan en la api
       this.elementos.nombrePokemon.textContent = datos.name; 
       this.elementos.numeroPokemon.textContent = datos.id; 
-      this.elementos.imagenPokemon.src = datos.sprites.versions['generation-v']['black-white'].animated.front_default; // Imagen del Pokémon
+      this.elementos.imagenPokemon.src = datos.sprites.versions['generation-v']['black-white'].animated.front_default; // fotico del poke
     } else {
       // muestra error si el pokemon no esta
       this.elementos.nombrePokemon.textContent = 'No encontrado :c'; 
