@@ -17,8 +17,29 @@ class AplicacionPokemon {
     this.elementos.botonAnterior.addEventListener('click', () => this.cambiarPokemon(-1));
     this.elementos.botonSiguiente.addEventListener('click', () => this.cambiarPokemon(1));
 
+    // metodo para registrar
+    this.registerEventListeners();
+    
     // primer pokemon al cargar pagina
     this.mostrarPokemon(this.busquedaPokemon);
+  }
+
+  // Método para registrar los event listeners
+  registerEventListeners() {
+    this.elementos.formulario.addEventListener('submit', event => {
+      event.preventDefault();
+      this.mostrarPokemon(this.elementos.entrada.value.toLowerCase());
+    });
+
+    this.elementos.botonAnterior.addEventListener('click', () => {
+      if (this.busquedaPokemon > 1) {
+        this.cambiarPokemon(-1);
+      }
+    });
+
+    this.elementos.botonSiguiente.addEventListener('click', () => {
+      this.cambiarPokemon(1);
+    });
   }
 
   // saca los datos del pokemoncito de la api
@@ -32,17 +53,33 @@ class AplicacionPokemon {
   async mostrarPokemon(pokemon) {
     const datos = await this.obtenerPokemon(pokemon);
     if (datos) {
-      // muestra los datos si estan en la api
-      this.elementos.nombrePokemon.textContent = datos.name; 
-      this.elementos.numeroPokemon.textContent = datos.id; 
-      this.elementos.imagenPokemon.src = datos.sprites.versions['generation-v']['black-white'].animated.front_default; // fotico del poke
+      // Muestra los datos si están en la API
+      this.elementos.nombrePokemon.textContent = datos.name;
+      this.elementos.numeroPokemon.textContent = datos.id;
+      // Obtiene la imagen animada del Pokémon si está disponible
+      const animatedImage = datos.sprites.versions['generation-v']['black-white'].animated.front_default;
+      if (animatedImage) {
+        this.elementos.imagenPokemon.src = animatedImage; // Fotico animado del poke
+      } else {
+        // Si no hay imagen animada, muestra la imagen estática
+        const staticImage = datos.sprites.other['official-artwork'].front_default;
+        if (staticImage) {
+          this.elementos.imagenPokemon.src = staticImage; // Fotico estático del poke
+        } else {
+          // Si no hay ninguna imagen disponible, oculta la imagen
+          this.elementos.imagenPokemon.style.display = 'none';
+        }
+      }
+      // Actualiza el número de búsqueda del Pokémon actual
+      this.busquedaPokemon = datos.id;
     } else {
-      // muestra error si el pokemon no esta
-      this.elementos.nombrePokemon.textContent = 'No encontrado :c'; 
-      this.elementos.numeroPokemon.textContent = ''; 
-      this.elementos.imagenPokemon.style.display = 'none'; 
+      // Muestra error si el Pokémon no está
+      this.elementos.nombrePokemon.textContent = 'No encontrado :c';
+      this.elementos.numeroPokemon.textContent = '';
+      this.elementos.imagenPokemon.style.display = 'none';
     }
   }
+  
 
   enviarFormulario(evento) {
     evento.preventDefault(); // Evitar recargar la página
