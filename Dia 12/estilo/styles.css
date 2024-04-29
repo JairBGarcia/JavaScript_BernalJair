@@ -36,18 +36,22 @@ body {
     z-index: 1;
 }
 
+#pedir-carta,
+#plantarse {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 #pedir-carta:hover,
 #plantarse:hover {
     background-color: #45a049;
 }
 
-#pedir-carta:active,
-#plantarse:active {
-    background-color: #398438;
-    transform: translateY(2px);
-}
-
-/* Estilos para el botón de reproducir música */
 button {
     position: absolute;
     top: 90vh;
@@ -63,7 +67,6 @@ button {
     z-index: 1;
 }
 
-/* Estilos para el control deslizante de volumen */
 input[type="range"] {
     position: absolute;
     top: 93vh;
@@ -71,4 +74,9 @@ input[type="range"] {
     transform: translateX(-50%);
     width: 200px;
     z-index: 1;
+}
+
+.carta-boca-abajo {
+    width: 205px;
+    height: auto;
 }
