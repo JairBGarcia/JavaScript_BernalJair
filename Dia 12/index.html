@@ -9,15 +9,23 @@
 </head>
 <body>
     <div class="game-container">
-        <div class="player-hand">
+        <div class="dealer-section">
+            <h2>Crupier</h2>
+            <div class="dealer-hand">
+            </div>
         </div>
-        <div class="dealer-hand">
+        <div class="player-section">
+            <h2>Tu mano</h2>
+            <div class="player-hand">
+            </div>
+            <div class="actions">
+                <button id="pedir-carta">Pedir carta</button>
+                <button id="plantarse">Plantarse</button>
+                <button id="volver-a-jugar">Volver a jugar</button>
+            </div>
+            <p id="mensaje-resultante"></p>
+            <p id="suma-cartas">Suma de tus cartas: 0</p>
         </div>
-        <button id="pedir-carta">Pedir carta</button>
-        <button id="plantarse">Plantarse</button>
-        <button id="volver-a-jugar">Volver a jugar</button>
-        <p id="mensaje-resultante"></p>
-        <p id="suma-cartas">Suma de tus cartas: 0</p>
     </div>
     <audio id="myAudio" src="./music/pio.mp3" loop preload="auto"></audio>
     <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1" onchange="changeVolume()">

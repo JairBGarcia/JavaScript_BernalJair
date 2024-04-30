@@ -101,3 +101,55 @@ input[type="range"] {
 #volver-a-jugar:hover {
     background-color: #45a049; 
 }
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.dealer-section,
+.player-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dealer-hand,
+.player-hand {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    left: -5vh;
+}
+
+.dealer-hand img,
+.player-hand img {
+    width: 100px; 
+    margin-right: 10px; 
+}
+
+.game-container h2 {
+    position: relative;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    top: -1vh;
+    left: 93vh; 
+    transform: translateX(-50%); 
+}
+
+.game-container p {
+    position: relative;
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 5px;
+    left: 93vh; 
+    transform: translateX(-50%); 
+}
