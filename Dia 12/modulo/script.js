@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 const carta = data.cards[0];
-                const imageUrl = carta.image;
+                const imageUrl = hand === dealerHand ? 'https://deckofcardsapi.com/static/img/back.png' : carta.image;
                 const cardImage = document.createElement('img');
                 cardImage.src = imageUrl;
                 hand.appendChild(cardImage);
-
+    
                 if (hand === playerHand) {
                     mensajeResultante.textContent = `Has recibido una carta: ${carta.value} de ${carta.suit}`;
                     totalPlayerSum += calcularValorCarta(carta.value);
@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } else if (hand === dealerHand) {
                     totalDealerSum += calcularValorCarta(carta.value);
-                    if (totalDealerSum < totalPlayerSum && totalDealerSum <= 21) {
-                        pedirCarta(dealerHand);
-                    } else {
+                    if (dealerTurn) {
                         mostrarResultado();
                     }
                 }
@@ -44,6 +42,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Hubo un problema al pedir la carta:', error);
             });
     }
+
+    function voltearCartasCrupier() {
+        // Eliminar todas las cartas del crupier
+        while (dealerHand.firstChild) {
+            dealerHand.removeChild(dealerHand.lastChild);
+        }
+        // Agregar una sola imagen de la parte trasera de la carta
+        const cardImage = document.createElement('img');
+        cardImage.src = 'https://deckofcardsapi.com/static/img/back.png';
+        dealerHand.appendChild(cardImage);
+    }
+
+    function pedirCartaDealer() {
+        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+            .then(response => response.json())
+            .then(data => {
+                const carta = data.cards[0];
+                const cardImage = document.createElement('img');
+                cardImage.src = carta.image;
+                dealerHand.appendChild(cardImage);
+    
+                totalDealerSum += calcularValorCarta(carta.value);
+                if (totalDealerSum <= 21 && totalDealerSum <= totalPlayerSum) {
+                    pedirCartaDealer(); 
+                } else {
+                    mostrarResultado();
+                }
+            })
+            .catch(error => {
+                console.error('Hubo un problema al pedir la carta:', error);
+            });
+    }
+    
+    
 
     function calcularValorCarta(valorCarta) {
         let valorNumerico = parseInt(valorCarta);
@@ -58,9 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function iniciarJuego() {
+        pedirCarta(dealerHand); 
         pedirCarta(playerHand);
+        pedirCarta(dealerHand); 
         pedirCarta(playerHand);
     }
+    
+    
 
     function mostrarResultado() {
         if (totalDealerSum <= 21) {
@@ -109,7 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
     plantarseBtn.addEventListener('click', () => {
         if (!gameOver && !dealerTurn) {
             dealerTurn = true;
-            pedirCarta(dealerHand);
+            voltearCartasCrupier();
+            pedirCartaDealer();
         }
     });
 
