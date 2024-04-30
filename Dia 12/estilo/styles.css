@@ -83,9 +83,9 @@ input[type="range"] {
 
 #volver-a-jugar {
     position: absolute;
-    top: 80vh; /* Ajusta la distancia desde la parte superior */
-    left: 92vh; /* Ajusta la distancia desde la izquierda */
-    background-color: #4CAF50; /* Verde */
+    top: 80vh; 
+    left: 92vh; 
+    background-color: #4CAF50; 
     border: none;
     color: white;
     padding: 15px 32px;
@@ -99,5 +99,5 @@ input[type="range"] {
 }
 
 #volver-a-jugar:hover {
-    background-color: #45a049; /* Verde más oscuro */
+    background-color: #45a049; 
 }

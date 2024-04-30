@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalPlayerSum = 0;
     let totalDealerSum = 0;
     let gameOver = false;
+    let dealerTurn = false;
 
-    // Función para pedir una carta al mazo
     function pedirCarta(hand) {
         fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
             .then(response => response.json())
@@ -30,8 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         gameOver = true;
                         mostrarResultado();
                     }
-                } else {
+                } else if (hand === dealerHand) {
                     totalDealerSum += calcularValorCarta(carta.value);
+                    if (totalDealerSum < totalPlayerSum && totalDealerSum <= 21) {
+                        pedirCarta(dealerHand);
+                    } else {
+                        mostrarResultado();
+                    }
                 }
             })
             .catch(error => {
@@ -39,20 +44,42 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Función para calcular el valor de una carta
     function calcularValorCarta(valorCarta) {
         let valorNumerico = parseInt(valorCarta);
         if (isNaN(valorNumerico)) {
             if (valorCarta === 'ACE') {
-                valorNumerico = 11; // Suponemos que el as vale 11 por defecto
+                valorNumerico = 11; 
             } else {
-                valorNumerico = 10; // Suponemos que las cartas de figura valen 10
+                valorNumerico = 10; 
             }
         }
         return valorNumerico;
     }
 
-    // Función para iniciar un nuevo juego
+    function iniciarJuego() {
+        pedirCarta(playerHand);
+        pedirCarta(playerHand);
+    }
+
+    function mostrarResultado() {
+        if (totalDealerSum <= 21) {
+            mensajeResultante.textContent = `El crupier tiene ${totalDealerSum} puntos.`;
+        } else {
+            mensajeResultante.textContent = 'El crupier se ha pasado de 21.';
+        }
+
+        if (totalPlayerSum > 21 || (totalPlayerSum < totalDealerSum && totalDealerSum <= 21)) {
+            mensajeResultante.textContent += "\n¡Has perdido!";
+        } else if (totalPlayerSum > totalDealerSum || totalDealerSum > 21) {
+            mensajeResultante.textContent += "\n¡Has ganado!";
+        } else {
+            mensajeResultante.textContent += "\n¡Es un empate!";
+        }
+        gameOver = true;
+        pedirCartaBtn.disabled = true;
+        plantarseBtn.disabled = true;
+    }
+
     function nuevoJuego() {
         playerHand.innerHTML = '';
         dealerHand.innerHTML = '';
@@ -61,52 +88,26 @@ document.addEventListener('DOMContentLoaded', () => {
         totalPlayerSum = 0;
         totalDealerSum = 0;
         gameOver = false;
+        dealerTurn = false;
         pedirCartaBtn.disabled = false;
         plantarseBtn.disabled = false;
-        pedirCarta(playerHand);
-        pedirCarta(playerHand);
-        pedirCarta(dealerHand);
-        pedirCarta(dealerHand);
+        iniciarJuego();
     }
 
-    // Función para mostrar el resultado del juego
-    function mostrarResultado() {
-        // Muestra la primera carta del crupier
-        dealerHand.children[0].style.visibility = 'visible';
+    iniciarJuego();
 
-        while (totalDealerSum < 17) {
-            pedirCarta(dealerHand);
-        }
-
-        if (totalPlayerSum > 21 || (totalPlayerSum < totalDealerSum && totalDealerSum <= 21)) {
-            mensajeResultante.textContent = "¡Has perdido!";
-        } else if (totalPlayerSum > totalDealerSum || totalDealerSum > 21) {
-            mensajeResultante.textContent = "¡Has ganado!";
-        } else {
-            mensajeResultante.textContent = "¡Es un empate!";
-        }
-        gameOver = true;
-        pedirCartaBtn.disabled = true;
-        plantarseBtn.disabled = true;
-    }
-
-    // Llamar a la función iniciarJuego al cargar la página
-    nuevoJuego();
-
-    // Event listener para el botón "Pedir carta"
     pedirCartaBtn.addEventListener('click', () => {
         if (!gameOver) {
             pedirCarta(playerHand);
         }
     });
 
-    // Event listener para el botón "Plantarse"
     plantarseBtn.addEventListener('click', () => {
         if (!gameOver) {
-            mostrarResultado();
+            dealerTurn = true;
+            pedirCarta(dealerHand);
         }
     });
 
-    // Event listener para el botón "Volver a jugar"
     volverAJugarBtn.addEventListener('click', nuevoJuego);
 });
