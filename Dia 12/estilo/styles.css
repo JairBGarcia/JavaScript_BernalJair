@@ -153,3 +153,39 @@ input[type="range"] {
     left: 93vh; 
     transform: translateX(-50%); 
 }
+
+.money-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+    top: -54vh;
+    left: -55vh;
+}
+
+.money-section p {
+    font-size: 18px;
+    color: #333;
+}
+
+.money-section input[type="number"] {
+    width: 60px;
+    margin-left: 10px;
+}
+
+.money-section button {
+    position: relative;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    left: -14vh;
+    top: 35vh;
+}
+
+.money-section button:hover {
+    background-color: #45a049;
+}

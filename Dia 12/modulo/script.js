@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalDealerSum = 0;
     let gameOver = false;
     let dealerTurn = false;
+    let dinero = 1000; // Dinero inicial del usuario
 
     function pedirCarta(hand) {
         fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
@@ -70,11 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (totalPlayerSum > 21 || (totalPlayerSum < totalDealerSum && totalDealerSum <= 21)) {
             mensajeResultante.textContent += "\n¡Has perdido!";
+            dinero -= parseInt(document.getElementById('apuesta').value);
         } else if (totalPlayerSum > totalDealerSum || totalDealerSum > 21) {
             mensajeResultante.textContent += "\n¡Has ganado!";
+            dinero += parseInt(document.getElementById('apuesta').value);
         } else {
             mensajeResultante.textContent += "\n¡Es un empate!";
         }
+        document.getElementById('money').textContent = dinero;
         gameOver = true;
         pedirCartaBtn.disabled = true;
         plantarseBtn.disabled = true;
@@ -97,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarJuego();
 
     pedirCartaBtn.addEventListener('click', () => {
-        if (!gameOver) {
+        if (!gameOver && !dealerTurn) {
             pedirCarta(playerHand);
         }
     });
 
     plantarseBtn.addEventListener('click', () => {
-        if (!gameOver) {
+        if (!gameOver && !dealerTurn) {
             dealerTurn = true;
             pedirCarta(dealerHand);
         }
