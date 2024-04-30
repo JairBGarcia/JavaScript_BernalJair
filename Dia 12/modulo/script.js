@@ -1,57 +1,112 @@
-document.addEventListener("DOMContentLoaded", async function() {
-    const nuevaBaraja = await obtenerNuevaBaraja();
-    const barajaId = nuevaBaraja.deck_id;
+document.addEventListener('DOMContentLoaded', () => {
+    const pedirCartaBtn = document.getElementById('pedir-carta');
+    const plantarseBtn = document.getElementById('plantarse');
+    const volverAJugarBtn = document.getElementById('volver-a-jugar');
+    const playerHand = document.querySelector('.player-hand');
+    const dealerHand = document.querySelector('.dealer-hand');
+    const mensajeResultante = document.getElementById('mensaje-resultante');
+    const sumaCartas = document.getElementById('suma-cartas');
 
-    const contenedorJugador = document.querySelector(".player-hand");
-    const contenedorDealer = document.querySelector(".dealer-hand");
+    let totalPlayerSum = 0;
+    let totalDealerSum = 0;
+    let gameOver = false;
 
-    mostrarManoInicial(barajaId, contenedorJugador, contenedorDealer);
-});
+    // Función para pedir una carta al mazo
+    function pedirCarta(hand) {
+        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+            .then(response => response.json())
+            .then(data => {
+                const carta = data.cards[0];
+                const imageUrl = carta.image;
+                const cardImage = document.createElement('img');
+                cardImage.src = imageUrl;
+                hand.appendChild(cardImage);
 
-async function mostrarManoInicial(barajaId, contenedorJugador, contenedorDealer) {
-    const cartasJugador = await extraerCartas(barajaId, 2);
-    const cartasDealer = await extraerCartas(barajaId, 2);
+                if (hand === playerHand) {
+                    mensajeResultante.textContent = `Has recibido una carta: ${carta.value} de ${carta.suit}`;
+                    totalPlayerSum += calcularValorCarta(carta.value);
+                    sumaCartas.textContent = `Suma de tus cartas: ${totalPlayerSum}`;
+                    if (totalPlayerSum > 21) {
+                        gameOver = true;
+                        mostrarResultado();
+                    }
+                } else {
+                    totalDealerSum += calcularValorCarta(carta.value);
+                }
+            })
+            .catch(error => {
+                console.error('Hubo un problema al pedir la carta:', error);
+            });
+    }
 
-    cartasJugador.forEach(carta => mostrarCarta(carta, contenedorJugador));
-    cartasDealer.forEach((carta, index) => {
-        if (index === 0) {
-            mostrarCarta(carta, contenedorDealer);
+    // Función para calcular el valor de una carta
+    function calcularValorCarta(valorCarta) {
+        let valorNumerico = parseInt(valorCarta);
+        if (isNaN(valorNumerico)) {
+            if (valorCarta === 'ACE') {
+                valorNumerico = 11; // Suponemos que el as vale 11 por defecto
+            } else {
+                valorNumerico = 10; // Suponemos que las cartas de figura valen 10
+            }
+        }
+        return valorNumerico;
+    }
+
+    // Función para iniciar un nuevo juego
+    function nuevoJuego() {
+        playerHand.innerHTML = '';
+        dealerHand.innerHTML = '';
+        mensajeResultante.textContent = '';
+        sumaCartas.textContent = 'Suma de tus cartas: 0';
+        totalPlayerSum = 0;
+        totalDealerSum = 0;
+        gameOver = false;
+        pedirCartaBtn.disabled = false;
+        plantarseBtn.disabled = false;
+        pedirCarta(playerHand);
+        pedirCarta(playerHand);
+        pedirCarta(dealerHand);
+        pedirCarta(dealerHand);
+    }
+
+    // Función para mostrar el resultado del juego
+    function mostrarResultado() {
+        // Muestra la primera carta del crupier
+        dealerHand.children[0].style.visibility = 'visible';
+
+        while (totalDealerSum < 17) {
+            pedirCarta(dealerHand);
+        }
+
+        if (totalPlayerSum > 21 || (totalPlayerSum < totalDealerSum && totalDealerSum <= 21)) {
+            mensajeResultante.textContent = "¡Has perdido!";
+        } else if (totalPlayerSum > totalDealerSum || totalDealerSum > 21) {
+            mensajeResultante.textContent = "¡Has ganado!";
         } else {
-            ocultarCarta(contenedorDealer);
+            mensajeResultante.textContent = "¡Es un empate!";
+        }
+        gameOver = true;
+        pedirCartaBtn.disabled = true;
+        plantarseBtn.disabled = true;
+    }
+
+    // Llamar a la función iniciarJuego al cargar la página
+    nuevoJuego();
+
+    // Event listener para el botón "Pedir carta"
+    pedirCartaBtn.addEventListener('click', () => {
+        if (!gameOver) {
+            pedirCarta(playerHand);
         }
     });
-}
 
-async function extraerCartas(barajaId, cantidad) {
-    const response = await fetch(`https://deckofcardsapi.com/api/deck/${barajaId}/draw/?count=${cantidad}`);
-    const data = await response.json();
-    return data.cards;
-}
+    // Event listener para el botón "Plantarse"
+    plantarseBtn.addEventListener('click', () => {
+        if (!gameOver) {
+            mostrarResultado();
+        }
+    });
 
-function mostrarCarta(carta, contenedor) {
-    const imagenCarta = document.createElement("img");
-    imagenCarta.src = carta.image;
-    contenedor.appendChild(imagenCarta);
-}
-
-function ocultarCarta(contenedor) {
-    const imagenCartaOculta = document.createElement("img");
-    imagenCartaOculta.src = "./imagen/atras.png";
-    imagenCartaOculta.classList.add("carta-boca-abajo");
-    contenedor.appendChild(imagenCartaOculta);
-}
-
-document.getElementById("pedir-carta").addEventListener("click", async function() {
-    const barajaId = document.getElementById("baraja-id").value;
-
-    const cartaJugador = await extraerCartas(barajaId, 1);
-
-    const contenedorJugador = document.querySelector(".player-hand");
-    mostrarCarta(cartaJugador[0], contenedorJugador);
+    // Event listener para el botón "Volver a jugar"
+    volverAJugarBtn.addEventListener('click', nuevoJuego);
 });
-
-async function obtenerNuevaBaraja() {
-    const response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
-    const data = await response.json();
-    return data;
-}

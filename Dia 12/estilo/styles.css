@@ -80,3 +80,24 @@ input[type="range"] {
     width: 205px;
     height: auto;
 }
+
+#volver-a-jugar {
+    position: absolute;
+    top: 80vh; /* Ajusta la distancia desde la parte superior */
+    left: 92vh; /* Ajusta la distancia desde la izquierda */
+    background-color: #4CAF50; /* Verde */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#volver-a-jugar:hover {
+    background-color: #45a049; /* Verde más oscuro */
+}
