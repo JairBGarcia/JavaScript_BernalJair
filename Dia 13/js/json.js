@@ -1,31 +1,25 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var formulario = document.getElementById("formulario");
-    var container = document.getElementById("container");
-    var datosGuardados = [];
+function nuevoHeroe() {
+  }
 
-    formulario.addEventListener("submit", function(event) {
-        event.preventDefault(); 
+  function guardarHeroe() {
+    const nombrePersonaje = document.getElementById('validationDefault01').value;
+    const nombreActor = document.getElementById('validationDefault02').value;
+    const edadActor = document.getElementById('validationDefaultUsername').value;
+    const ubicacion = document.getElementById('validationDefault03').value;
+    const poster = document.getElementById('poblacion').value;
 
-        var nombre = document.getElementById("nombre").value;
-        var edad = document.getElementById("edad").value;
+    const heroe = {
+      "nombrePersonaje": nombrePersonaje,
+      "nombreActor": nombreActor,
+      "edadActor": edadActor,
+      "ubicacion": ubicacion,
+      "poster": poster
+    };
 
-        var nuevoDato = {
-            nombre: nombre,
-            edad: edad
-        };
+    const jsonHeroe = JSON.stringify(heroe);
 
-        datosGuardados.push(nuevoDato);
+    console.log(jsonHeroe);
+  }
 
-        renderizarDatos();
-    });
-
-    function renderizarDatos() {
-        container.innerHTML = "";
-
-        datosGuardados.forEach(function(item) {
-            var elemento = document.createElement("p");
-            elemento.textContent = "Nombre: " + item.nombre + ", Edad: " + item.edad;
-            container.appendChild(elemento);
-        });
-    }
-});
+  function cancelar() {
+  }
