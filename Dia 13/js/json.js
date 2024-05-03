@@ -1,25 +1,36 @@
-function nuevoHeroe() {
-  }
+let heroes = [];
 
-  function guardarHeroe() {
-    const nombrePersonaje = document.getElementById('validationDefault01').value;
-    const nombreActor = document.getElementById('validationDefault02').value;
-    const edadActor = document.getElementById('validationDefaultUsername').value;
-    const ubicacion = document.getElementById('validationDefault03').value;
-    const poster = document.getElementById('poblacion').value;
+function agregarHeroe() {
+  const nombrePersonaje = document.getElementById('nombrePersonaje').value;
+  const nombreActor = document.getElementById('nombreActor').value;
+  const edadActor = document.getElementById('edadActor').value;
+  const ubicacionActor = document.getElementById('ubicacionActor').value;
+  const ubicacion = document.getElementById('ubicacion').value;
+  const productora = document.getElementById('productora').value;
 
-    const heroe = {
-      "nombrePersonaje": nombrePersonaje,
-      "nombreActor": nombreActor,
-      "edadActor": edadActor,
-      "ubicacion": ubicacion,
-      "poster": poster
-    };
+  const nuevoHeroe = {
+    nombrePersonaje: nombrePersonaje,
+    nombreActor: nombreActor,
+    edadActor: edadActor,
+    ubicacionActor: ubicacionActor,
+    ubicacion: ubicacion,
+    productora: productora
+  };
 
-    const jsonHeroe = JSON.stringify(heroe);
+  heroes.push(nuevoHeroe);
+}
 
-    console.log(jsonHeroe);
-  }
+function guardarHeroe() {
+}
 
-  function cancelar() {
-  }
+function eliminarHeroe() {
+}
+
+function editarHeroe() {
+}
+
+document.getElementById('nuevoHeroe').addEventListener('click', agregarHeroe);
+document.getElementById('guardarHeroe').addEventListener('click', guardarHeroe);
+document.getElementById('eliminarHeroe').addEventListener('click', eliminarHeroe);
+document.getElementById('editarHeroe').addEventListener('click', editarHeroe);
+document.getElementById('cancelar').addEventListener('click', cancelar);
