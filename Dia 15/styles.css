@@ -89,6 +89,7 @@
     top: 4vh;
     left: 39.5vh;
     border-radius: 50%;
+    border-color: black;
 }
 
 .perfil:hover{
@@ -97,73 +98,17 @@
     
 }
 
-body {
-    align-items: center;
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100vh;
-    justify-content: center;
-  }
-  
-  figure {
-    border-radius: 100%;
-    display: block;
-    height: 150px;
-    position: relative;
-    width: 150px;
-  }
-  
-  img {
-    border-radius: inherit;
-    height: inherit;
-    width: inherit;
-  }
-  
-  figure:after {
-    background-color: rgba(0, 0, 0, .5);
-    border-radius: 5px;
-    color: #fff;
-    content: attr(title);
-    opacity: 0;
-    padding: 6px 12px;
+.nombre{ 
     position: absolute;
-    left: 110%;
-    top: 30px;
-    transition: all .25s ease;
-    visibility: hidden;
-    white-space: nowrap;
-  }
-  
-  figure[tooltip-dir="left"]:after {
-    left: auto;
-    right: 110%;
-  }
-  
-  figure[tooltip-dir="bottom"]:after,
-  figure[tooltip-dir="top"]:after {
-    left: 50%;
-      right: auto;
-  
-    transform: translateX(-50%);
-  }
-  
-  figure[tooltip-dir="bottom"]:after {
-    bottom: auto;
-    top: 110%;
-  }
-  
-  figure[tooltip-dir="top"]:after {
-    bottom: 110%;
-    top: auto;
-  }
-  
-  figure:hover:after {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  select {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 6px 12px;
-  }
+    top: 45vh;
+    left: 78vh;
+}
+
+.boton{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    top: 37vh;
+    left: 91vh;
+    border-radius: 50%;
+}
