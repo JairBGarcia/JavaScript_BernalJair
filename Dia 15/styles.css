@@ -3,7 +3,7 @@
     width: 5vh;
     height: 5vh;
     top: 60vh;
-    left: 80vh;
+    left: 63vh;
 }
 
 .calendario:hover{
@@ -17,7 +17,7 @@
     width: 5vh;
     height: 5vh;
     top: 60vh;
-    left: 60vh;
+    left: 23vh;
 }
 
 .sobre:hover{
@@ -31,7 +31,7 @@
     width: 5vh;
     height: 5vh;
     top: 60vh;
-    left: 140vh;
+    left: 165vh;
 }
 
 .cerrar:hover{
@@ -44,8 +44,8 @@
     position: absolute;
     width: 5vh;
     height: 5vh;
-    top: 60vh;
-    left: 40vh;
+    top: 46vh;
+    left: 70vh;
 }
 
 .usuario:hover{
@@ -59,7 +59,7 @@
     width: 5vh;
     height: 5vh;
     top: 60vh;
-    left: 100vh;
+    left: 98vh;
 }
 
 .mapa:hover{
@@ -73,7 +73,7 @@
     width: 5vh;
     height: 5vh;
     top: 60vh;
-    left: 120vh;
+    left: 135vh;
 }
 
 .telefono:hover{
@@ -112,3 +112,34 @@
     left: 91vh;
     border-radius: 50%;
 }
+
+.correo{ 
+    position: absolute;
+    top: 68vh;
+    left: 10vh;
+}
+
+.cel{ 
+    position: absolute;
+    top: 68vh;
+    left: 128vh;
+}
+
+.contraseña{
+    position: absolute;
+    top: 68vh;
+    left: 160vh;
+}
+
+.cumpleaños{
+    position: absolute;
+    top: 68vh;
+    left: 48vh;
+}
+
+.direccion{
+    position: absolute;
+    top: 68vh;
+    left: 90vh;
+}
+

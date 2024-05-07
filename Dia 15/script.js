@@ -37,3 +37,5 @@ document.addEventListener('DOMContentLoaded', function () {
       figure.setAttribute('tooltip-dir', this.value);
     });
   });
+
+$('#nombre').css("visibility", "hidden");
