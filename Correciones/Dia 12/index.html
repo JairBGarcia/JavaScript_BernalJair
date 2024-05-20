@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Blackjack</title>
+    <link rel="stylesheet" href="./estilo/styles.css">
+    <link rel="icon" href="./imagen/piolin.png" type="image/png">
+</head>
+<body>
+    <div class="game-container">
+        <div class="dealer-section">
+            <h2>Crupier</h2>
+            <div class="dealer-hand">
+            </div>
+        </div>
+        <div class="player-section">
+            <h2>Tu mano</h2>
+            <div class="player-hand">
+            </div>
+            <div class="actions">
+                <button id="pedir-carta">Pedir carta</button>
+                <button id="plantarse">Plantarse</button>
+                <button id="volver-a-jugar">Volver a jugar</button>
+            </div>
+            <p id="mensaje-resultante"></p>
+            <p id="suma-cartas">Suma de tus cartas: 0</p>
+        </div>
+    </div>
+    <audio id="myAudio" src="./music/pio.mp3" loop preload="auto"></audio>
+    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1" onchange="changeVolume()">
+    <button onclick="toggleAudio()">Reproducir música</button>
+
+    <div class="money-section">
+        <p>Dinero: <span id="money">1000</span></p>
+        <label for="apuesta">Apuesta:</label>
+        <input type="number" id="apuesta" min="0" max="1000" step="10" value="10">
+        <button id="apostar">Apostar</button>
+    </div>
+    
+
+    <script src="./modulo/script.js"></script>
+</body>
+</html>

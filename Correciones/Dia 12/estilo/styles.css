@@ -1,0 +1,191 @@
+body {
+    background: linear-gradient(to bottom, #4CAF50, #ffffff); 
+    margin: 0; 
+    padding: 0; 
+    width: 1920px; 
+    height: 1080px; 
+}
+
+#pedir-carta {
+    position: absolute;
+    top: 80vh;
+    left: 65vh;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+#plantarse {
+    position: absolute;
+    top: 80vh;
+    left: 119vh;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+#pedir-carta,
+#plantarse {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#pedir-carta:hover,
+#plantarse:hover {
+    background-color: #45a049;
+}
+
+button {
+    position: absolute;
+    top: 90vh;
+    left: 92vh;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+input[type="range"] {
+    position: absolute;
+    top: 93vh;
+    left: 92vh;
+    transform: translateX(-50%);
+    width: 200px;
+    z-index: 1;
+}
+
+.carta-boca-abajo {
+    width: 205px;
+    height: auto;
+}
+
+#volver-a-jugar {
+    position: absolute;
+    top: 80vh; 
+    left: 92vh; 
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#volver-a-jugar:hover {
+    background-color: #45a049; 
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.dealer-section,
+.player-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dealer-hand,
+.player-hand {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    left: -5vh;
+}
+
+.dealer-hand img,
+.player-hand img {
+    width: 100px; 
+    margin-right: 10px; 
+}
+
+.game-container h2 {
+    position: relative;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    top: -1vh;
+    left: 93vh; 
+    transform: translateX(-50%); 
+}
+
+.game-container p {
+    position: relative;
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 5px;
+    left: 93vh; 
+    transform: translateX(-50%); 
+}
+
+.money-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+    top: -54vh;
+    left: -55vh;
+}
+
+.money-section p {
+    font-size: 18px;
+    color: #333;
+}
+
+.money-section input[type="number"] {
+    width: 60px;
+    margin-left: 10px;
+}
+
+.money-section button {
+    position: relative;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    left: -14vh;
+    top: 35vh;
+}
+
+.money-section button:hover {
+    background-color: #45a049;
+}
